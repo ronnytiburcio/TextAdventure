@@ -6,7 +6,7 @@ public class TextController : MonoBehaviour {
 	
 	public Text text;
 	
-	private enum States {Bed, Mirror, Door, Clothes,BrakeMirror, WritingOnStomach, ReadWritingOnStomach, GrabKey, Freedom};
+	private enum States {Bed, Mirror, Door, Clothes, WriteOnDesk, ReadBackwards, WritingOnStomach, ReadWritingOnStomach, GrabKey, Freedom};
 	private States MyState;  
 	
 	
@@ -24,6 +24,12 @@ public class TextController : MonoBehaviour {
 		  state_Door();
 		}else if (MyState== States.Clothes){
 		state_Clothes();
+		}else if (MyState== States.Mirror){
+		state_Mirror();
+		}else if (MyState== States.ReadWritingOnStomach){
+		state_ReadWritingOnStomach();
+		}else if (MyState== States.ReadBackwards){
+		state_ReadBackwards();
 		}
 	}
 	void state_bed(){
@@ -38,6 +44,8 @@ public class TextController : MonoBehaviour {
 			MyState= States.Door;
 		} else if (Input.GetKeyDown(KeyCode.C)){
 		MyState=States.Clothes;
+		} else if (Input.GetKeyDown(KeyCode.M)){
+		MyState=States.Mirror;
 		}
 	} 
 	void state_Door(){
@@ -60,4 +68,35 @@ public class TextController : MonoBehaviour {
 			MyState= States.Bed;
 		}
 	}
-}
+	void state_Mirror(){
+	text.text="What the fu%<! Why would I write on my stomach? How drunk was I?"+
+			  " I wonder what it says............\n\n"+
+			  "Press S to read what it says, Press R to roam the room";
+		if(Input.GetKeyDown(KeyCode.S)){
+		MyState=States.ReadWritingOnStomach;
+		}
+		else if (Input.GetKeyDown(KeyCode.R)){
+		MyState=States.Bed;
+		}
+	}
+	void state_ReadWritingOnStomach(){
+	text.text="It seems like I wrote it backwards. I guess I am a skilled backwards"+
+		      " writer when I'm wasted. Or maybe it's just that I am looking at it"+
+		      " from a mirror.\n\n"+
+		      "Press B to try to read it,Press W to write it out on desk";
+		 if (Input.GetKeyDown(KeyCode.B)){
+		 MyState=States.ReadBackwards;
+		 }
+		 else if (Input.GetKeyDown(KeyCode.W)){
+		 MyState=States.WriteOnDesk;
+		 } 
+	   }
+	void state_ReadBackwards(){
+	text.text="Now what does this say? Hmmmmmmmm. After 5 minutes of trying to figure this out"+
+			  ", maybe it's time for me to accept that I am way to drunk to attempt this. \n\n"+
+			  "Press S to return";
+		if (Input.GetKeyDown(KeyCode.S)){
+		MyState=States.Mirror;
+		}
+	}	
+ }
