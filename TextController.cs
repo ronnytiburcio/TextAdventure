@@ -30,7 +30,12 @@ public class TextController : MonoBehaviour {
 		state_ReadWritingOnStomach();
 		}else if (MyState== States.ReadBackwards){
 		state_ReadBackwards();
+		}else if (MyState== States.WriteOnDesk){
+		state_WriteOnDesk();
+		}else if (MyState==States.GrabKey){
+		state_GrabKey();
 		}
+		
 	}
 	void state_bed(){
 		text.text="You wake up in a bed that you do not recognize."+
@@ -99,4 +104,23 @@ public class TextController : MonoBehaviour {
 		MyState=States.Mirror;
 		}
 	}	
- }
+	void state_WriteOnDesk(){
+	text.text="After writing it out and maneuvering the letters I was finally able to read out"+
+			  " what my drunk self left my kinda drunk self left me. The words spelled out"+
+			  " She hid the key under the pillow, Get out.\n\n"+
+			  "Press P to grab the key under the pillow.";
+		if (Input.GetKeyDown(KeyCode.P)){
+		MyState=States.GrabKey;
+		}
+	}
+	void state_GrabKey(){
+	text.text="You slowly walked over to her side of the bed trying to ignore the squeeky tiles"+
+			  " on the ground. You slowly reach your arm under the pillow and you feel a cold piece"+
+			  " of shape metal. Its the Key. Out of excitement you agressiveley pull your arm out"+
+			  " quickly open the door. You made it you son of a gun. You are free. naked but free.\n\n"+
+			  "Press Spacebar to start all over, other wise you can close this app.";
+		if (Input.GetKeyDown(KeyCode.Space)){
+		MyState=States.Bed;
+		}
+	}
+}
